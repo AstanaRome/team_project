@@ -30,9 +30,9 @@ class ExpensesView(LoginRequiredMixin, generic.ListView):# Expenses list for a s
     model = User
 
 
-
 class UserListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'catalog.admin_required'
+    template_name = 'catalog/user_list.html'
     model = User
     paginate_by = 10
 
