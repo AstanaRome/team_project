@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Delete user</h2>
+
+    <p>Are you sure you want to delete the user: {{ user.username }}?</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-outline-danger">Yes, delete</button>
+    </form>
+{% endblock %}

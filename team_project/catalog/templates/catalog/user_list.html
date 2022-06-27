@@ -1,0 +1,18 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Users list</h2>
+
+    <ul class="list-group">
+        {% for user in user_list %}
+            <li class="list-group-item">
+                {{ user.username }}
+
+                <a href="{% url 'user-update' user.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
+
+                <a href="{% url 'user-delete' user.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

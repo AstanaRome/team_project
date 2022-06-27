@@ -1,7 +1,34 @@
 {% extends 'base_generic.html' %}
-{% load static %}
 
 
 {% block content %}
-    <h2>WOW!!! THIS IS SEP-201L's TEAM PROJECT!!!</h2>
+    <h2>My account</h2>
+    <button>Refresh</button>
+    <hr>
+    <table class="table col-4">
+        <caption>Account in currencies</caption>
+
+        {#{% for i in range(account_currencies) %}#}
+        <tr>
+            <td>
+                {{ i }}
+            </td>
+        </tr>
+        {#{% endfor %}#}
+    </table>
+    <table class="table">
+        <caption>Exchange Rates</caption>
+        <tr>
+            <th>Currency</th>
+            <th>Rate</th>
+            <th>Date</th>
+        </tr>
+        {#{% for i in range(exchange_rates) %}#}
+        <tr>
+            <td>{{ i.name }}</td>
+            <td>{{ i.rate }}</td>
+            {#<td>{{datetime.datetime.utcnow.strftime('%d-%m-%Y')}}</td>#}
+        </tr>
+        {#{% endfor %}#}
+    </table>
 {% endblock %}

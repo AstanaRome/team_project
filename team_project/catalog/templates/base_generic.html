@@ -17,8 +17,9 @@
                 {% block sidebar %}
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
-                            <li>{{ user.username }}</li>
-
+                            <li class="nav-item">
+                                <a href="{% url 'user' user.pk %}" class="nav-link"><strong>{{ user.username }}</strong></a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{% url 'logout'%}?next={{request.path}}" class="nav-link">Log out</a>
                             </li>
@@ -27,18 +28,29 @@
                                 <a href="{% url 'login' %}?next={{request.path}}" class="nav-link">Log in</a>
                             </li>
                         {% endif %}
+                        <hr>
                         <li class="nav-item">
-                            <a href="{% url 'index' %}" class="nav-link">Link</a>
+                            <a href="{% url 'transfer' %}" class="nav-link">Transfer</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'index' %}" class="nav-link">Link</a>
+                            <a href="{% url 'my-income' %}" class="nav-link">My income</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'index' %}" class="nav-link">Link</a>
+                            <a href="{% url 'my-expenses' %}" class="nav-link">My expenses</a>
                         </li>
-                        {% if perms.catalog.moderator_required %}
+                        {% if perms.catalog.admin_required %}
+                            <hr>
                             <li class="nav-item">
-                                <a href="{% url 'index' %}" class="nav-link">Link</a>
+                                <a href="{% url 'users' %}" class="nav-link">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'currencies' %}" class="nav-link">Currencies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'income' %}" class="nav-link">Income</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'expenses' %}" class="nav-link">Expenses</a>
                             </li>
                         {% endif %}
                     </ul>
