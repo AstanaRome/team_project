@@ -2,13 +2,13 @@
 
 
 {% block content %}
-    <h2>Delete currency</h2>
+    <h2>Удаление валюты</h2>
 
-    <p>Are you sure you want to delete the currency: {{ currency }}?</p>
+    <p>Вы действительно хотите удалить валюту: {{ currency }}?</p>
     
     <form action="" method="POST">
         {% csrf_token %}
 
-        <button type="submit" class="btn btn-outline-danger">Yes, delete</button>
+        <button type="submit" class="btn btn-outline-danger">Ok</button>
     </form>
 {% endblock %}

@@ -2,10 +2,10 @@
 
 
 {% block content %}
-    <h2>Log in</h2>
+    <h2>Вход</h2>
 
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <p>Псевдо и пароль не совпадают. Попробуйте снова.</p>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post">
@@ -24,13 +24,13 @@
             </tr>
         </table>
 
-        <button type="submit" class="btn btn-outline-danger">Log in</button>
+        <button type="submit" class="btn btn-outline-danger">Вход</button>
 
         <input type="hidden" name="next" value="{{ next }}"/>
     </form>
 
     {# Assumes you setup the password_reset view in your URLconf #}
     <p>
-        <a href="{% url 'password_reset' %}">Lost password?</a>
+        <a href="{% url 'password_reset' %}">Забыли пароль?</a>
     </p>
 {% endblock %}

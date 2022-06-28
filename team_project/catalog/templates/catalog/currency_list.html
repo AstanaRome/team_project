@@ -2,7 +2,9 @@
 
 
 {% block content %}
-    <h2>Currencies list</h2>
+    <h2>Валюты</h2>
+
+    <a href="{% url 'currency-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
 
     {% if currency_list %}
         <ul class="list-group">
@@ -10,15 +12,15 @@
                 <li class="list-group-item">
                     {{ currency.currency }}
 
-                    {% if perms.catalog.staff_member_required %}
-                        <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
+                    {% if perms.catalog.admin_required %}
+                        <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
 
-                        <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
+                        <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>There are no currencies in the system.</p>
+        <p>Так жить нельзя.</p>
     {% endif %}
 {% endblock %}

@@ -2,11 +2,11 @@
 
 
 {% block content %}
-    <h2>My account</h2>
-    <button>Refresh</button>
+    <h2>Счёт</h2>
+    <button>Обновить</button>
     <hr>
     <table class="table col-4">
-        <caption>Account in currencies</caption>
+        <caption>Счёт в валюте</caption>
 
         {#{% for i in range(account_currencies) %}#}
         <tr>
@@ -17,11 +17,11 @@
         {#{% endfor %}#}
     </table>
     <table class="table">
-        <caption>Exchange Rates</caption>
+        <caption>Курс валют</caption>
         <tr>
-            <th>Currency</th>
-            <th>Rate</th>
-            <th>Date</th>
+            <th>Валюта</th>
+            <th>Курс</th>
+            <th>Дата</th>
         </tr>
         {#{% for i in range(exchange_rates) %}#}
         <tr>

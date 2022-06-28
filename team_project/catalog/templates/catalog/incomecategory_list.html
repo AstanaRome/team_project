@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Категории доходов</h2>
+
+    <a href="{% url 'income-cat-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
+
+    {% if incomecategory_list %}
+        <ul class="list-group">
+            {% for income in incomecategory_list %}
+                <li class="list-group-item">
+                    {{ income }}
+
+                    <a href="{% url 'income-cat-update' income.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
+
+                    <a href="{% url 'income-cat-delete' income.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Так жить нельзя.</p>
+    {% endif %}
+{% endblock %}

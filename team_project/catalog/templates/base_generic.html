@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Team project</title>
+        <title>Мои финансы</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,36 +21,36 @@
                                 <a href="{% url 'user' user.pk %}" class="nav-link"><strong>{{ user.username }}</strong></a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'logout'%}?next={{request.path}}" class="nav-link">Log out</a>
+                                <a href="{% url 'logout'%}?next={{request.path}}" class="nav-link">Выход</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a href="{% url 'login' %}?next={{request.path}}" class="nav-link">Log in</a>
+                                <a href="{% url 'login' %}?next={{request.path}}" class="nav-link">Вход</a>
                             </li>
                         {% endif %}
                         <hr>
                         <li class="nav-item">
-                            <a href="{% url 'transfer' %}" class="nav-link">Transfer</a>
+                            <a href="{% url 'transfer' %}" class="nav-link">Перевести</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'my-income' %}" class="nav-link">My income</a>
+                            <a href="{% url 'my-income' %}" class="nav-link">Мои доходы</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'my-expenses' %}" class="nav-link">My expenses</a>
+                            <a href="{% url 'my-expenses' %}" class="nav-link">Мои расходы</a>
                         </li>
                         {% if perms.catalog.admin_required %}
                             <hr>
                             <li class="nav-item">
-                                <a href="{% url 'users' %}" class="nav-link">Users</a>
+                                <a href="{% url 'users' %}" class="nav-link">Пользователи</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'currencies' %}" class="nav-link">Currencies</a>
+                                <a href="{% url 'currencies' %}" class="nav-link">Валюты</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'income' %}" class="nav-link">Income</a>
+                                <a href="{% url 'income' %}" class="nav-link">Доходы</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{% url 'expenses' %}" class="nav-link">Expenses</a>
+                                <a href="{% url 'expenses' %}" class="nav-link">Расходы</a>
                             </li>
                         {% endif %}
                     </ul>
@@ -66,7 +66,7 @@
                     <div class="pagination">
                         <span class="page-links">
                             {% if page_obj.has_previous %}
-                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="page-link">back</a>
+                                <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}" class="page-link">пред.</a>
                             {% endif %}
 
                             <span class="page-current">
@@ -74,7 +74,7 @@
                             </span>
                             
                             {% if page_obj.has_next %}
-                                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}" class="page-link">forward</a>
+                                <a href="{{ request.path }}?page={{ page_obj.next_page_number }}" class="page-link">след.</a>
                             {% endif %}
                         </span>
                     </div>

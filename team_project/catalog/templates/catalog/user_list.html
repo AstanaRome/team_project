@@ -2,16 +2,18 @@
 
 
 {% block content %}
-    <h2>Users list</h2>
+    <h2>Список пользователей</h2>
+
+    <a href="{% url 'user-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
 
     <ul class="list-group">
         {% for user in user_list %}
             <li class="list-group-item">
                 {{ user.username }}
 
-                <a href="{% url 'user-update' user.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
+                <a href="{% url 'user-update' user.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
 
-                <a href="{% url 'user-delete' user.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
+                <a href="{% url 'user-delete' user.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
             </li>
         {% endfor %}
     </ul>

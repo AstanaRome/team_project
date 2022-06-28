@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Кошельки</h2>
+
+    <a href="{% url 'wallet-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
+
+    {% if wallet_list %}
+        <ul class="list-group">
+            {% for wallet in wallet_list %}
+                <li class="list-group-item">
+                    {{ wallet.wallet }}
+
+                    <a href="{% url 'wallet-update' wallet.pk %}" role="button" class="btn btn-outline-danger"></a>
+
+                    <a href="{% url 'wallet-delete' wallet.pk %}" role="button" class="btn btn-outline-danger"></a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Так жить нельзя.</p>
+    {% endif %}
+{% endblock %}

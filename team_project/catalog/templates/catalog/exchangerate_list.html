@@ -1,0 +1,28 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Курсы валют</h2>
+
+    {% if perms.catalog.admin_required %}
+        <a href="{% url 'rate-add' %}" role="button" class="btn btn-outline-danger">Добавить</a>
+    {% endif %}
+
+    {% if exchangerate_list %}
+        <ul class="list-group">
+            {% for rate in exchangerate_list %}
+                <li class="list-group-item">
+                    {{ rate }}
+
+                    {% if perms.catalog.admin_required %}
+                        <a href="{% url 'rate-update' rate.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
+
+                        <a href="{% url 'rate-delete' rate.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Так жить нельзя.</p>
+    {% endif %}
+{% endblock %}

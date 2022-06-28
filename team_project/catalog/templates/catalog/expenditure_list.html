@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+
+{% block content %}
+    <h2>Мои расходы</h2>
+
+    <a href="{% url 'expenditure-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
+
+    {% if expenditure_list %}
+        <ul class="list-group">
+            {% for expense in expenditure_list %}
+                <li class="list-group-item">
+                    {{ expense }}
+
+                    <a href="{% url 'expenditure-update' expense.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
+
+                    <a href="{% url 'expenditure-delete' expense.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>А чтоб я так жил.</p>
+    {% endif %}
+{% endblock %}

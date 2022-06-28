@@ -2,23 +2,23 @@
 
 
 {% block content %}
-    <h2>Income list</h2>
+    <h2>Мои доходы</h2>
+
+    <a href="{% url 'income-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
 
     {% if income_list %}
         <ul class="list-group">
             {% for income in income_list %}
                 <li class="list-group-item">
-                    {{ income.income }}
+                    {{ income }}
 
-                    {% if perms.catalog.staff_member_required %}
-                        <a href="{% url 'income-update' income.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
+                    <a href="{% url 'income-update' income.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
 
-                        <a href="{% url 'income-delete' income.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
-                    {% endif %}
+                    <a href="{% url 'income-delete' income.pk %}" role="button" class="btn btn-outline-danger">Удалить</a>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>There are no incomes in the system.</p>
+        <p>Так жить нельзя.</p>
     {% endif %}
 {% endblock %}
