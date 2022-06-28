@@ -2,7 +2,7 @@
 
 
 {% block content %}
-<h2>Currencies list</h2>
+<h2>Курс валют</h2>
 
 {% if currency_list %}
 <ul class="list-group">
@@ -22,23 +22,26 @@
                 <th scope="row">{{currency.id}}</th>
                 <td>{{currency.name}}</td>
                 <td>
-                    <table>
+                    <table class="table">
+                        {% for exchange_rate in currency.exchange_rate.all %}
                         <tr>
-                            {% for exchange_rate in currency.exchange_rate.all %}
-                            <td>{{exchange_rate.name}}</td>
-                            {% endfor %}
+                            <td scope="row">{{exchange_rate.name}}</td>
+                            <td scope="row">{{exchange_rate.rate}}</td>
+                            <td scope="row">
+                                {% if perms.catalog.staff_member_required %}
+                            <td>
+                                <a href="{% url 'exchange_rate_update' exchange_rate.pk %}" role="button"
+                                   class="btn btn-outline-danger">Изменить</a>
+                            </td>
+                            {% endif %}
+                            </td>
                         </tr>
+                        {% endfor %}
                     </table>
                 </td>
             </tr>
             </tbody>
-
         </table>
-        {% if perms.catalog.staff_member_required %}
-        <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
-
-        <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
-        {% endif %}
     </li>
     {% endfor %}
 </ul>

@@ -174,3 +174,10 @@ class ExpenseDelete(PermissionRequiredMixin, DeleteView):
     # model = Expense
     model = User
     success_url = reverse_lazy('expenses')
+
+
+class ExchangeRateUpdate(UpdateView):
+    model = ExchangeRate
+    template_name = 'catalog/exchange_rate_form.html'
+    fields = ['name', 'rate']
+    success_url = reverse_lazy('currencies')

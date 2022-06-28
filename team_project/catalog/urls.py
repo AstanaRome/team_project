@@ -29,4 +29,6 @@ urlpatterns = [
     path('expense/create/', views.ExpenseCreate.as_view(), name='expense-create'),
     path('expense/<int:pk>/update/', views.ExpenseUpdate.as_view(), name='expense-update'),
     path('expense/<int:pk>/delete/', views.ExpenseDelete.as_view(), name='expense-delete'),
+
+    path('exchange_rate/update/<int:pk>', views.ExchangeRateUpdate.as_view(), name='exchange_rate_update')
 ]
