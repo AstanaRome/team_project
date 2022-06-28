@@ -4,7 +4,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# from .models import Currency, Expense, Income, Transfer
+from .models import Currency, Income, Transfer
 
 
 def index(request):
@@ -37,10 +37,13 @@ class UserListView(PermissionRequiredMixin, generic.ListView):
     paginate_by = 10
 
 
+class CurrencyDetailView(PermissionRequiredMixin, generic.DetailView):
+    permission_required = 'catalog.admin_required'
+    model = Currency
+
 class CurrenciesListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'catalog.admin_required'
-    # model = Currency
-    model = User
+    model = Currency
     paginate_by = 10
 
 

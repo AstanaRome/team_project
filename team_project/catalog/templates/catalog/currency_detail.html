@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{ currency.name }}</h1>
+<!--<p>{{ currency.exchange_rate.all|join:", " }}</p>-->
+{% for copy in currency.exchangerate_set.all %}
+  {{copy}} - {{copy.rate}}
+{% endfor %}
+<!--  </div>-->
+{% endblock %}
