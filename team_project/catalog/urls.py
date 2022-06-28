@@ -20,6 +20,7 @@ urlpatterns = [
     path('user/<int:pk>/update/', views.UserUpdate.as_view(), name='user-update'),
     path('user/<int:pk>/delete/', views.UserDelete.as_view(), name='user-delete'),
 
+    path('currency/<int:pk>/', views.CurrencyDetailView.as_view(), name='currency-detail'),
     path('currency/create/', views.CurrencyCreate.as_view(), name='currency-create'),
     path('currency/<int:pk>/update/', views.CurrencyUpdate.as_view(), name='currency-update'),
     path('currency/<int:pk>/delete/', views.CurrencyDelete.as_view(), name='currency-delete'),

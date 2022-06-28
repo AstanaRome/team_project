@@ -2,16 +2,24 @@
 
 
 {% block content %}
+<<<<<<< HEAD
     <h2>Валюты</h2>
 
     <a href="{% url 'currency-create' %}" role="button" class="btn btn-outline-danger">Добавить</a>
+=======
+<h2>Currencies list</h2>
+>>>>>>> origin/master
 
-    {% if currency_list %}
-        <ul class="list-group">
-            {% for currency in currency_list %}
-                <li class="list-group-item">
-                    {{ currency.currency }}
+{% if currency_list %}
+<ul class="list-group">
+    {% for currency in currency_list %}
+    <li class="list-group-item">
+        <a class="text-decoration-none" href="{% url 'currency-detail' currency.pk %}">{{ currency }}</a>
+        <!--{{ currency.exchange_rate.all|join:", " }}-->
+        {% if perms.catalog.staff_member_required %}
+         <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
 
+<<<<<<< HEAD
                     {% if perms.catalog.admin_required %}
                         <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>
 
@@ -23,4 +31,14 @@
     {% else %}
         <p>Так жить нельзя.</p>
     {% endif %}
+=======
+         <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no currencies in the system.</p>
+{% endif %}
+>>>>>>> origin/master
 {% endblock %}
