@@ -39,12 +39,13 @@ class IncomeCategory(models.Model):
 # Кошелек пользователя
 class Wallet(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='user_wallets') #владелец кошелька
+    unique_num = models.PositiveBigIntegerField() #уникальный номер кошелька
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True) #валюта кошелька
     money = models.DecimalField(max_digits=12, decimal_places=4) #кол-во денег в кошельке
     main_wallet = models.BooleanField(default=False) #кошелек основной или нет
 
     def __str__(self):
-        return self.user
+        return f'{self.currency}'
 
 
 # Расходы
@@ -79,14 +80,19 @@ class Income(models.Model):
 
 #Переводы
 class Transfer(models.Model):
-    wallet_from = models.PositiveSmallIntegerField() #Id кошелька с которого был сделан перевод
-    wallet_to = models.PositiveSmallIntegerField() #Id кошелька на который был сделан перевод
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    wallet_from_id = models.IntegerField() #Id кошелька с которого был сделан перевод
+    wallet_to_id = models.IntegerField() #Id кошелька на который был сделан перевод
     date = models.DateTimeField(default=datetime.datetime.now()) #Дата перевода(ставится автоматический дата при создании записи в таблице)
     note = models.CharField(max_length=100) #Заметки к переводу
     money = models.DecimalField(max_digits=8, decimal_places=2) #Сумма переведенных денег
 
+    wallet_choices = (
+        ('Wallet')
+    )
+
     def __str__(self):
-        return f'{self.wallet_from, self.wallet_to}'
+        return f'{self.user}'
 
     class Meta:
         ordering = ['-id']

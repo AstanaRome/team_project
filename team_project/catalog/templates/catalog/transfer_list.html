@@ -1,0 +1,42 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+<form action="" method="post" class="transfer_form">
+    {% csrf_token %}
+    {{ transfer_form.as_table }}
+    <input type="submit" value="Отправить">
+</form>
+
+{% if transfer_list %}
+<ul class="list-group">
+    <h2>Переводы:</h2>
+    {% for transfer in transfer_list %}
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">С какого кошелька</th>
+            <th scope="col">На какой кошелек</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Заметка</th>
+            <th scope="col">Сумма</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">{{transfer.id}}</th>
+            <td>{{transfer.wallet_from_id}}</td>
+            <td>{{transfer.wallet_to_id}}</td>
+            <td>{{transfer.date}}</td>
+            <td>{{transfer.note}}</td>
+            <td>{{transfer.money}}</td>
+        </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no transfer in the system.</p>
+{% endif %}
+{% endblock %}

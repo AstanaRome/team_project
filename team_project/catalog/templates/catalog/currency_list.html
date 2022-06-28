@@ -2,23 +2,47 @@
 
 
 {% block content %}
-    <h2>Currencies list</h2>
+<h2>Currencies list</h2>
 
-    {% if currency_list %}
-        <ul class="list-group">
-            {% for currency in currency_list %}
-                <li class="list-group-item">
-                    {{ currency.currency }}
+{% if currency_list %}
+<ul class="list-group">
+    {% for currency in currency_list %}
+    <li class="list-group-item">
+        {{ currency.name }}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Валюта</th>
+                <th scope="col">Курс валюты</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">{{currency.id}}</th>
+                <td>{{currency.name}}</td>
+                <td>
+                    <table>
+                        <tr>
+                            {% for exchange_rate in currency.exchange_rate.all %}
+                            <td>{{exchange_rate.name}}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
 
-                    {% if perms.catalog.staff_member_required %}
-                        <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
+        </table>
+        {% if perms.catalog.staff_member_required %}
+        <a href="{% url 'currency-update' currency.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
 
-                        <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no currencies in the system.</p>
-    {% endif %}
+        <a href="{% url 'currency-delete' currency.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no currencies in the system.</p>
+{% endif %}
 {% endblock %}

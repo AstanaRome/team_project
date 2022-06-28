@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# from .models import Currency, Expense, Income, Transfer
+from .models import *
+from .forms import TransferForm
 
 
 def index(request):
@@ -12,12 +13,48 @@ def index(request):
 
 
 class UserDetailView(generic.DetailView):
+    template_name = 'catalog/user_detail.html'
     model = User
 
 
-class TransferView(LoginRequiredMixin):
-    # model = Transfer
-    model = User
+class TransferListView(FormMixin, LoginRequiredMixin, generic.ListView):
+    model = Transfer
+    template_name = 'catalog/transfer_list.html'
+    form_class = TransferForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        transfer_form = TransferForm()
+        context['transfer_form'] = transfer_form
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('transfer')
+
+    def post(self, request, *args, **kwargs):
+        transfer_form = TransferForm(request.POST, None)
+        if transfer_form.is_valid():
+            return self.transfer_form_valid(transfer_form)
+        else:
+            return self.form_invalid(transfer_form)
+
+    def transfer_form_valid(self, form):
+        self.object = form.save(commit=False)
+        wallet_from_id = self.request.POST.get('wallet_from_id', '')
+        wallet_to_id = self.request.POST.get('wallet_to_id', '')
+        note = self.request.POST.get('note', '')
+        money = self.request.POST.get('money', '')
+        self.object.user = self.request.user
+        self.object.wallet_from_id = wallet_from_id
+        self.object.wallet_to_id = wallet_to_id
+        self.object.note = note
+        self.object.money = money
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_queryset(self):
+        return Transfer.objects.filter(user=self.request.user)
+
 
 
 class IncomeView(LoginRequiredMixin, generic.ListView):# Income list for a specific user.
@@ -39,8 +76,8 @@ class UserListView(PermissionRequiredMixin, generic.ListView):
 
 class CurrenciesListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'catalog.admin_required'
-    # model = Currency
-    model = User
+    template_name = 'catalog/currency_list.html'
+    model = Currency
     paginate_by = 10
 
 
