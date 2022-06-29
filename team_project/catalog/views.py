@@ -25,8 +25,8 @@ class TransferListView(FormMixin, LoginRequiredMixin, generic.ListView):
     form_class = TransferForm
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs).__init__(self)
-        transfer_form = TransferForm(current_user=self.request.user)
+        context = super().get_context_data(**kwargs)
+        transfer_form = TransferForm()
         context['transfer_form'] = transfer_form
         return context
 

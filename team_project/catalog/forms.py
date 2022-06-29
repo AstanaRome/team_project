@@ -15,9 +15,8 @@ class TransferForm(ModelForm):
             'money': ''
         }
 
-    def __init__(self, current_user, *args, **kwargs):
-        super(TransferForm, self).__init__(*args, **kwargs)
-        self.fields['user'].queryset = self.fields['user'].queryset.exclude(id=current_user.id)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         for field in ['wallet_from', 'wallet_to', 'note', 'money']:
             self.fields[field].help_text = None
