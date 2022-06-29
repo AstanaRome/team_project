@@ -4,15 +4,16 @@ from django.db import models
 
 # Валюта
 class Currency(models.Model):
-    name = models.CharField(max_length=20, help_text='Enter the currency name')
+    name = models.CharField(max_length=20, help_text='Введите название валюты')
+    image = models.CharField(max_length=200, help_text='Изображение страны валюты',null=True)
     def __str__(self):
         return self.name
 
 # Курс валют
 class ExchangeRate(models.Model):
     currency = models.ForeignKey('Currency', on_delete=models.RESTRICT, null=True)
-    currency_to = models.OneToOneField('Currency', on_delete=models.RESTRICT, null=True ,related_name='currency_to')
-    rate = models.DecimalField(max_digits=12, decimal_places=4)
+    currency_to = models.ForeignKey('Currency', on_delete=models.RESTRICT, null=True ,related_name='currency_to')
+    rate = models.DecimalField(max_digits=12, decimal_places=6)
     def __str__(self):
         return (self.currency.name + self.currency_to.name)
 

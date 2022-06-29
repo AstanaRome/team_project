@@ -4,7 +4,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .models import Currency, Income, Transfer
+from .models import *
 
 
 def index(request):
@@ -17,18 +17,16 @@ class UserDetailView(generic.DetailView):
 
 class TransferView(LoginRequiredMixin):
     model = Transfer
-    model = User
 
 
-class IncomeListView(LoginRequiredMixin, generic.ListView):# Income list for a specific user.
+class IncomeListView(LoginRequiredMixin, generic.ListView):  # Income list for a specific user.
     model = Income
     paginate_by = 10
 
 
-class ExpenditureListView(LoginRequiredMixin, generic.ListView):# Expenses list for a specific user.
+class ExpenditureListView(LoginRequiredMixin, generic.ListView):  # Expenses list for a specific user.
     model = Expenditure
     paginate_by = 10
-
 
 
 class UserListView(PermissionRequiredMixin, generic.ListView):
@@ -41,6 +39,7 @@ class UserListView(PermissionRequiredMixin, generic.ListView):
 class CurrencyDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'catalog.admin_required'
     model = Currency
+
 
 class CurrenciesListView(PermissionRequiredMixin, generic.ListView):
     permission_required = 'catalog.admin_required'
@@ -65,20 +64,23 @@ class ExpenseCategoryListView(PermissionRequiredMixin, generic.ListView):
     paginate_by = 10
 
 
-class WalletListView(LoginRequiredMixin, generic.ListView):# Wallets list for a specific user.
+class WalletListView(LoginRequiredMixin, generic.ListView):  # Wallets list for a specific user.
     model = Wallet
     paginate_by = 10
-
 
 
 class UserCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.admin_required'
     model = User
+    fields = '__all__'  # Not recommended
+
 
 class UserUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.admin_required'
     model = User
     success_url = reverse_lazy('users')
+    fields = '__all__'  # Not recommended
+
 
 class UserDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.admin_required'
@@ -86,15 +88,18 @@ class UserDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('users')
 
 
-
 class CurrencyCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.admin_required'
     model = Currency
+    fields = '__all__'  # Not recommended
+
 
 class CurrencyUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.admin_required'
     model = Currency
     success_url = reverse_lazy('currencies')
+    fields = '__all__'  # Not recommended
+
 
 class CurrencyDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.admin_required'
@@ -102,15 +107,18 @@ class CurrencyDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('currencies')
 
 
-
 class ExchangeRateCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.admin_required'
     model = ExchangeRate
+    fields = '__all__'  # Not recommended
+
 
 class ExchangeRateUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.admin_required'
     model = ExchangeRate
     success_url = reverse_lazy('rates')
+    fields = '__all__'  # Not recommended
+
 
 class ExchangeRateDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.admin_required'
@@ -118,15 +126,18 @@ class ExchangeRateDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('rates')
 
 
-
 class IncomeCategoryCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.admin_required'
     model = IncomeCategory
+    fields = '__all__'  # Not recommended
+
 
 class IncomeCategoryUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.admin_required'
     model = IncomeCategory
     success_url = reverse_lazy('income-cats')
+    fields = '__all__'  # Not recommended
+
 
 class IncomeCategoryDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.admin_required'
@@ -134,29 +145,34 @@ class IncomeCategoryDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('income-cats')
 
 
-
 class IncomeCreate(LoginRequiredMixin, CreateView):
     model = Income
-    model = User
+    fields = '__all__'  # Not recommended
+
 
 class IncomeUpdate(LoginRequiredMixin, UpdateView):
     model = Income
     success_url = reverse_lazy('income')
+    fields = '__all__'  # Not recommended
+
 
 class IncomeDelete(LoginRequiredMixin, DeleteView):
     model = Income
     success_url = reverse_lazy('income')
 
 
-
 class ExpenseCategoryCreate(PermissionRequiredMixin, CreateView):
     permission_required = 'catalog.admin_required'
     model = ExpenseCategory
+    fields = '__all__'  # Not recommended
+
 
 class ExpenseCategoryUpdate(PermissionRequiredMixin, UpdateView):
     permission_required = 'catalog.admin_required'
     model = ExpenseCategory
+    fields = '__all__'  # Not recommended
     success_url = reverse_lazy('expenses')
+
 
 class ExpenseCategoryDelete(PermissionRequiredMixin, DeleteView):
     permission_required = 'catalog.admin_required'
@@ -164,28 +180,32 @@ class ExpenseCategoryDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('expenses')
 
 
-
 class ExpenditureCreate(LoginRequiredMixin, CreateView):
     model = Expenditure
-    model = User
+    fields = '__all__'  # Not recommended
+
 
 class ExpenditureUpdate(LoginRequiredMixin, UpdateView):
     model = Expenditure
+    fields = '__all__'  # Not recommended
     success_url = reverse_lazy('expenditures')
+
 
 class ExpenditureDelete(LoginRequiredMixin, DeleteView):
     model = Expenditure
     success_url = reverse_lazy('expenditures')
 
 
-
 class WalletCreate(LoginRequiredMixin, CreateView):
     model = Wallet
-    model = User
+    fields = '__all__'  # Not recommended
+
 
 class WalletUpdate(LoginRequiredMixin, UpdateView):
     model = Wallet
+    fields = '__all__'  # Not recommended
     success_url = reverse_lazy('wallets')
+
 
 class WalletDelete(LoginRequiredMixin, DeleteView):
     model = Wallet
