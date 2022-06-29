@@ -1,10 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>{{ currency.name }}</h1>
+<h1> <img src="{{ currency.image}}" height="60" width="60"> {{ currency.name }}</h1>
 <!--<p>{{ currency.exchange_rate.all|join:", " }}</p>-->
 {% for copy in currency.exchangerate_set.all %}
-  {{copy}} - {{copy.rate}}
+  <p> <img src="{{copy.currency_to.image}}" height="30" width="30"> {{copy.currency_to}} - {{copy.rate}}<p>
 {% endfor %}
 <!--  </div>-->
 {% endblock %}
