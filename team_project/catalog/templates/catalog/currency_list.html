@@ -6,7 +6,6 @@
 
 {% if currency_list %}
 <ul class="list-group">
-    {% for currency in currency_list %}
     <li class="list-group-item">
         {{ currency.name }}
         <table class="table">
@@ -18,19 +17,20 @@
             </tr>
             </thead>
             <tbody>
+            {% for currency in currency_list %}
             <tr>
                 <th scope="row">{{currency.id}}</th>
                 <td>{{currency.name}}</td>
                 <td>
                     <table class="table">
-                        {% for exchange_rate in currency.exchange_rate.all %}
+                        {% for currency_to in currency.currency_to.all %}
                         <tr>
-                            <td scope="row">{{exchange_rate.name}}</td>
-                            <td scope="row">{{exchange_rate.rate}}</td>
+                            <td scope="row">{{currency_to.currency}}</td>
+                            <td class="col-2">{{currency_to.rate}}</td>
                             <td scope="row">
                                 {% if perms.catalog.staff_member_required %}
                             <td>
-                                <a href="{% url 'exchange_rate_update' exchange_rate.pk %}" role="button"
+                                <a href="{% url 'exchange_rate_update' currency_to.pk %}" role="button"
                                    class="btn btn-outline-danger">Изменить</a>
                             </td>
                             {% endif %}
@@ -40,10 +40,11 @@
                     </table>
                 </td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
     </li>
-    {% endfor %}
+
 </ul>
 {% else %}
 <p>There are no currencies in the system.</p>

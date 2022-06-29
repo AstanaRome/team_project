@@ -20,7 +20,7 @@
             {% if user.is_authenticated %}
             <li class="nav-item">
                 <a href="{% url 'user' user.pk %}" class="nav-link"><strong>{{ user.username }}</strong></a>
-                <a href="#">Добавить карту</a>
+                <a href="{% url 'create_wallet' %}" class="nav-link"><strong>Добавить карту</strong></a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'logout'%}?next={{request.path}}" class="nav-link">Выйти</a>
@@ -48,9 +48,6 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'currencies' %}" class="nav-link">Валюты</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Курс валют</a>
             </li>
             {% endif %}
         </ul>

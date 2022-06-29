@@ -3,22 +3,22 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Курс валют
-class ExchangeRate(models.Model):
-    name = models.CharField(max_length=20)
-    rate = models.DecimalField(max_digits=12, decimal_places=4)
-
-    def __str__(self):
-        return self.name
-
-
 # Валюта
 class Currency(models.Model):
     name = models.CharField(max_length=20, help_text='Enter the currency name')
-    exchange_rate = models.ManyToManyField(ExchangeRate)
 
     def __str__(self):
         return self.name
+
+
+# Курс валют
+class ExchangeRate(models.Model):
+    currency = models.ForeignKey('Currency', on_delete=models.RESTRICT, null=True)
+    currency_to = models.ForeignKey('Currency', on_delete=models.CASCADE, null=True, related_name='currency_to')
+    rate = models.DecimalField(max_digits=12, decimal_places=4)
+
+    def __str__(self):
+        return f'{self.currency.name,self.currency_to.name}'
 
 
 #Категория затрат
@@ -39,13 +39,12 @@ class IncomeCategory(models.Model):
 # Кошелек пользователя
 class Wallet(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='user_wallets') #владелец кошелька
-    unique_num = models.PositiveBigIntegerField() #уникальный номер кошелька
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True) #валюта кошелька
-    money = models.DecimalField(max_digits=12, decimal_places=4) #кол-во денег в кошельке
-    main_wallet = models.BooleanField(default=False) #кошелек основной или нет
+    money = models.DecimalField(max_digits=12, decimal_places=4, blank=True, null=True) #кол-во денег в кошельке
+    main_wallet = models.BooleanField(default=False, blank=True, null=True) #кошелек основной или нет
 
     def __str__(self):
-        return f'{self.currency}'
+        return f"{self.currency}"
 
 
 # Расходы
@@ -80,27 +79,15 @@ class Income(models.Model):
 
 #Переводы
 class Transfer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    wallet_from_id = models.IntegerField() #Id кошелька с которого был сделан перевод
-    wallet_to_id = models.IntegerField() #Id кошелька на который был сделан перевод
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='wallet_user')
+    wallet_from = models.ForeignKey(Wallet, on_delete=models.SET_NULL, null=True) #Кошелек с которого был сделан перевод
+    wallet_to = models.OneToOneField(Wallet, on_delete=models.SET_NULL, null=True, related_name='wallet_to') #Кошелек на который был сделан перевод
     date = models.DateTimeField(default=datetime.datetime.now()) #Дата перевода(ставится автоматический дата при создании записи в таблице)
     note = models.CharField(max_length=100) #Заметки к переводу
     money = models.DecimalField(max_digits=8, decimal_places=2) #Сумма переведенных денег
 
-    wallet_choices = (
-        ('Wallet')
-    )
-
     def __str__(self):
-        return f'{self.user}'
+        return f"{self.user}"
 
     class Meta:
         ordering = ['-id']
-
-
-
-
-
-
-
-

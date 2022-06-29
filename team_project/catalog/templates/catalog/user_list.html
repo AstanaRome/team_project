@@ -2,17 +2,48 @@
 
 
 {% block content %}
-    <h2>Users list</h2>
-
-    <ul class="list-group">
+<h2>Список пользователей</h2>
+<ul class="list-group">
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Логин</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Почта</th>
+            <th>Дата регистрации</th>
+            <th>Дата последнего онлайна</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for user in user_list %}
-            <li class="list-group-item">
-                {{ user.username }}
-
-                <a href="{% url 'user-update' user.pk %}" role="button" class="btn btn-outline-danger">UPDATE</a>/
-
-                <a href="{% url 'user-delete' user.pk %}" role="button" class="btn btn-outline-danger">DELETE</a>
-            </li>
+        <tr>
+            <th>{{user.pk}}</th>
+            <th>{{user.username}}</th>
+            {% if user.first_name %}
+            <th>{{user.first_name}}</th>
+            {% else %}
+            <th>Имя не указано</th>
+            {% endif %}
+            {% if user.last_name %}
+            <th>{{user.last_name}}</th>
+            {% else %}
+            <th>Фамилия не указано</th>
+            {% endif %}
+            {% if user.email %}
+            <th>{{user.email}}</th>
+            {% else %}
+            <th>Почта не указано</th>
+            {% endif %}
+            <th>{{user.date_joined}}</th>
+            <th>{{user.last_login}}</th>
+            <th><a href="{% url 'user-update' user.pk %}" role="button" class="btn btn-outline-danger">Изменить</a>/
+                <a href="{% url 'user-delete' user.pk %}" role="button" class="btn btn-outline-danger">Удалить</a></th>
+        </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+
+</ul>
 {% endblock %}

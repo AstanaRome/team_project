@@ -2,35 +2,38 @@
 
 
 {% block content %}
-    <h2>Log in</h2>
+<h2>Авторизация</h2>
 
-    {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
-    {% endif %}
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
 
-        <table>
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                
-                <td>{{ form.username }}</td>
-            </tr>
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                
-                <td>{{ form.password }}</td>
-            </tr>
-        </table>
+    <table>
+        <tr>
+            <td>Логин</td>
 
-        <button type="submit" class="btn btn-outline-danger">Log in</button>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>Пароль</td>
 
-        <input type="hidden" name="next" value="{{ next }}"/>
-    </form>
+            <td>{{ form.password }}</td>
+        </tr>
+    </table>
 
-    {# Assumes you setup the password_reset view in your URLconf #}
-    <p>
-        <a href="{% url 'password_reset' %}">Lost password?</a>
-    </p>
+    <button type="submit" class="btn btn-outline-danger">Войти</button>
+
+    <input type="hidden" name="next" value="{{ next }}"/>
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<p>
+    <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+</p>
+<p>
+    <a href="{% url 'user-create' %}">Регистрация</a>
+</p>
 {% endblock %}
